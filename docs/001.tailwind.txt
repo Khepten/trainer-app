@@ -1,0 +1,13 @@
+Commande d'installation de tailwind : 
+npm install postcss autoprefixer tailwindcss
+
+Commande d'initialisation du projet : 
+npx tailwindcss init
+=> Created Tailwind CSS config file: tailwind.config.js
+
+Création du fichier /src/index.css : 
+@tailwind base;       /* Includes Tailwind’s base styles like resets */
+@tailwind components; /* Includes reusable component styles */
+@tailwind utilities;  /* Includes utility classes */
+
+Injecter le index.css dans l'app
