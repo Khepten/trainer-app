@@ -10,4 +10,11 @@ Création du fichier /src/index.css :
 @tailwind components; /* Includes reusable component styles */
 @tailwind utilities;  /* Includes utility classes */
 
-Injecter le index.css dans l'app
+Dans le fichier index.tsx en ligne 4, ajouter la ligne 
+import './index.css';
+
+Dans la page Home.tsx 
+ajouter <p className='text-blue-500'>Lorem ipsum</p> afin de vérifier si Tailwind est correctement installé
+
+Fin de la partie graphique
+
