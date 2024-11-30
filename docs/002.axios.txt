@@ -1,0 +1,26 @@
+Gestion du backend et de la liaison entre la base et le frontend
+
+Installatin d'Axios pour gérer la récupération de données (fetch)
+npm install axios
+
+travaux sur le backend
+création des pages ClientList et ClientForm
+affichage d'un objet dans ClientList
+
+création du dossier backend afin de créer la connexion à postgresql
+npm init -y => permet d'instancier le projet et de créer package.json
+npm install express pg cors dotenv
+
+création du fichier .env dans le backend
+PG_USER=trainer-app
+PG_HOST=postgresql-trainer-app.alwaysdata.net
+PG_DATABASE=trainer-app_db
+PG_PASSWORD=Ormelune45@
+PG_PORT=5432
+
+Création du fichier index.js dans le backend
+
+Liaison avec le frontend
+dans le frontend > création du fichier /src/services/clientService.js
+
+

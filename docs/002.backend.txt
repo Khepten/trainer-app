@@ -1,5 +1,0 @@
-Gestion du backend et de la liaison entre la base et le frontend
-
-Installatin d'Axios pour gérer la récupération de données (fetch)
-npm install axios
-
