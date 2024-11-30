@@ -1,3 +1,53 @@
+import React, { useEffect, useState } from 'react';
+import { getClients } from '../services/clientService';
+//import { getClients } from './clientService';
+import Navigation from '../components/Navigation';
+import Logo from '../components/Logo';
+
+const ClientList = () => {
+    //const [clients, setClients] = useState([]);
+    interface Client {
+        id: number;
+        firstname: string;
+        lastname: string;
+        email: string;
+        phone: string;
+    }
+    const [clients, setClients] = useState<Client[]>([]);
+    
+    useEffect(() => {
+        getClients()
+            .then(data => {
+                setClients(data); // Mettre à jour l'état avec les données récupérées
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement des clients:', error);
+            });
+    }, []);
+    
+    return (
+        <div>
+            <Logo />
+            <Navigation />
+            <h2>Liste des clients</h2>
+            {clients.length > 0 ? (
+                <ul>
+                    {clients.map((client) => (
+                        //<li key={client.id}>{client.firstname}</li>
+                        <li key={client.id}>{client.id}{client.firstname}{client.lastname}{client.email}{client.phone}</li>
+                    ))}
+                </ul>
+            ) : (
+                <p>Aucun client trouvé.</p>
+            )}
+        </div>
+    );
+};
+
+export default ClientList;
+
+
+
 /* Avant gestion de la liaison avec pg
 
 import React from 'react';
@@ -28,36 +78,3 @@ const ClientList = () => {
 export default ClientList;
 */
 
-import React, { useEffect, useState } from 'react';
-import { getClients } from '../services/clientService';
-import Navigation from '../components/Navigation';
-import Logo from '../components/Logo';
-
-function ClientList() {
-    const [clients, setClients] = useState([]);
-
-    useEffect(() => {
-        const fetchClients = async () => {
-            const data = await getClients();
-            setClients(data);
-        };
-        fetchClients();
-    }, []);
-
-    return (
-        <div>
-            <Logo />
-            <Navigation />
-            <h1>Liste des clients</h1>
-            <ul>
-                {clients.map(client => (
-                    <li key={client.id}>
-                        {client.name} - {client.age} ans - {client.email}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-}
-
-export default ClientList;

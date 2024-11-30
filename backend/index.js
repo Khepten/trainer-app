@@ -30,6 +30,7 @@ app.get("/clientlist", async (req, res) => {
     }
 });
 
+/*
 // Route pour ajouter un client
 app.post("/clientform", async (req, res) => {
     try {
@@ -49,3 +50,5 @@ app.post("/clientform", async (req, res) => {
 app.listen(port, () => {
     console.log(`Serveur démarré sur le port ${port}`);
 });
+
+*/
