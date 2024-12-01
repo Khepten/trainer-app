@@ -18,9 +18,7 @@ function ClientForm() {
         try {
             const response = await fetch('http://localhost:5000/clientform', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ firstname, lastname, email, phone }),
             });
 
@@ -32,7 +30,7 @@ function ClientForm() {
                 setEmail('');
                 setPhone('');
             } else {
-                console.error('Erreur lors de l\'ajout du client');
+                console.log('Erreur lors de l\'ajout du client');
             }
         } catch (error) {
             console.error('Erreur:', error);
@@ -47,6 +45,7 @@ function ClientForm() {
             <label>
                 Prénom:
                 <input
+                    id="firsname"
                     type="text"
                     value={firstname}
                     onChange={(e) => setFirstname(e.target.value)}
@@ -56,6 +55,7 @@ function ClientForm() {
             <label>
                 Nom:
                 <input
+                    id="lastname"
                     type="text"
                     value={lastname}
                     onChange={(e) => setLastname(e.target.value)}
@@ -65,6 +65,7 @@ function ClientForm() {
             <label>
                 Email:
                 <input
+                    id="email"
                     type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -74,6 +75,7 @@ function ClientForm() {
             <label>
                 Téléphone:
                 <input
+                    id="phone"
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}

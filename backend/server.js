@@ -32,16 +32,23 @@ app.get("/clientlist", async (req, res) => {
 
 // Route pour ajouter un client
 app.post("/clientform", async (req, res) => {
+    console.log("Corps de la requête :", req.body);
+    res.json({ message: "Retu" });
     try {
         const { firstname, lastname, email, phone } = req.body;
         const result = await pool.query(
-            "INSERT INTO clients (id, firstname, lastname, email, phone) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-            [id, firstname, lastname, email, phone]
+            `INSERT INTO clients (firstname, lastname, email, phone) VALUES ($1, $2, $3, $4) RETURNING *`,
+            [firstname, lastname, email, phone]
         );
-        res.json(result.rows[0]);
+        res.status(201).json({
+            message: "Client ajouté avec succès",
+            client: result.rows[0],
+        });
+        //res.status(201).json(result.rows[0]);
+        //res.json(result.rows[0]);
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Erreur serveur");
+        console.error(err.message + "testnd");
+        res.status(500).send("Erreur serveur nd");
     }
 });
 

@@ -24,55 +24,35 @@ const ClientList = () => {
     }, []);
     
     return (
-        <div>
-            <Logo />
-            <Navigation />
-            <h2>Liste des clients</h2>
-            {clients.length > 0 ? (
-                <ul>
-                    {clients.map((client) => (
-                        //<li key={client.id}>{client.firstname}</li>
-                        <li key={client.id}>{client.id}{client.firstname}{client.lastname}{client.email}{client.phone}</li>
-                    ))}
-                </ul>
-            ) : (
-                <p>Aucun client trouvé.</p>
-            )}
+        <div className='min-h-screen bg-gray-100'>
+                <Logo />
+                <Navigation />
+            <main className='max-w-4xl mx-auto py-8 px-4'>
+                <h2 className='text-2xl font-bold text-gray-800 mb-6'>Liste des clients</h2>
+                {clients.length > 0 ? (
+                    <ul className='space-y-4'>
+                        {clients.map((client) => (
+                            <li key={client.id} className='bg-white rounded-lg shadow-md p-4 flex justify-between items-center hover:shadow-lg transition-shadow duration-200'>
+                                <div>
+                                    <p className='text-lg font-medium text-gray-900'>
+                                        {client.firstname} {client.lastname}
+                                    </p>
+                                    <p className='text-sm text-gray-500'>
+                                        Email: {client.email} | Téléphone: {client.phone}
+                                    </p>
+                                </div>
+                                    {/* {client.id}{client.firstname}{client.lastname}{client.email}{client.phone} */}
+                                <p className="text-sm text-gray-400">ID: {client.id}</p>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="text-center text-gray-500 mt-6">Aucun client trouvé.</p>
+                )}
+            </main>
+           
         </div>
     );
 };
 
 export default ClientList;
-
-
-
-/* Avant gestion de la liaison avec pg
-
-import React from 'react';
-import Navigation from '../components/Navigation';
-import Logo from '../components/Logo';
-
-const ClientList = () => {
-    const clients = [
-        { id: 1, name: 'John Doe', age: 30 },
-        { id: 2, name: 'Jane Smith', age: 28 },
-    ];
-    return (
-        <div>
-            <Logo />
-            <Navigation />
-            <h1>La liste de clients</h1>
-            <ul>
-                {clients.map(client => (
-                    <li key={client.id}>
-                        {client.name} - {client.age} ans
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
-
-export default ClientList;
-*/
-

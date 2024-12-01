@@ -1,0 +1,9 @@
+POST http://localhost:5000/clientform
+Content-Type: application/json
+
+{
+    "firstname": "testfirsname",
+    "lastname": "Doedoedoe",
+    "email": "john.doedoedoe@example.com",
+    "phone": "134897635215"
+}
