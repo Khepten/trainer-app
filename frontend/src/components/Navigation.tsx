@@ -14,10 +14,12 @@ const Navigation = () => {
                 <NavLink to="/clientlist">
                     <li>Liste des clients</li>
                 </NavLink>
+                <NavLink to="/clientform">
+                    <li>Ajout d'un client</li>
+                </NavLink>
             </ul>
         </div>
     );
 };
-
 
 export default Navigation;

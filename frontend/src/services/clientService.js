@@ -1,10 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL; // URL de votre backend
-console.log("URL du backend:", BASE_URL);
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
-/*
-// version de prod
 export const getClients = async () => {
     try {
         const response = await axios.get(`${BASE_URL}/clientlist`);
@@ -14,8 +11,19 @@ export const getClients = async () => {
         throw error; // Relance l'erreur pour la gérer côté frontend
     }
 };
-*/
 
+export const addClient = async (clientData) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/clientform`, clientData);
+        return response.data; // Retourne le client ajouté
+    } catch (error) {
+        console.error("Erreur lors de l'ajout d'un client:", error);
+        throw error;
+    }
+};
+
+/*
+// pour récupérer et lire les données clients
 // version de test à remplacer par la version de prod après debug
 export const getClients = async () => {
     try {
@@ -34,6 +42,7 @@ export const getClients = async () => {
         throw error; // Propager l'erreur
     }
 };
+*/
 
 /*
 export const addClient = async (client) => {
@@ -56,17 +65,6 @@ export const addClient = async (client) => {
  * @param {Object} clientData - Les données du client à ajouter.
  * @returns {Promise<Object>} - Une promesse contenant le client ajouté.
  */
-/*
-export const addClient = async (clientData) => {
-    try {
-        const response = await axios.post(`${BASE_URL}/clients`, clientData);
-        return response.data; // Retourne le client ajouté
-    } catch (error) {
-        console.error('Erreur lors de l\'ajout d\'un client:', error);
-        throw error;
-    }
-};
-*/
 
 /**
  * Mettre à jour un client existant.

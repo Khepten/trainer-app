@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getClients } from '../services/clientService';
-//import { getClients } from './clientService';
 import Navigation from '../components/Navigation';
 import Logo from '../components/Logo';
 
 const ClientList = () => {
-    //const [clients, setClients] = useState([]);
     interface Client {
         id: number;
         firstname: string;
