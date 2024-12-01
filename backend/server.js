@@ -52,6 +52,29 @@ app.post("/clientform", async (req, res) => {
     }
 });
 
+// Route pour éditer un client
+// Route pour mettre à jour un client
+app.put("/api/clients/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { firstname, lastname, email, phone } = req.body;
+
+        const result = await pool.query(
+            `UPDATE clients SET firstname = $1, lastname = $2, email = $3, phone = $4 WHERE id = $5 RETURNING *`,
+            [firstname, lastname, email, phone, id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: "Client non trouvé" });
+        }
+
+        res.json({ message: "Client mis à jour", client: result.rows[0] });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: "Erreur serveur" });
+    }
+});
+
 // Démarrer le serveur
 app.listen(port, () => {
     console.log(`Serveur démarré sur le port ${port}`);
