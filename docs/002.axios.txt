@@ -23,4 +23,9 @@ Création du fichier index.js dans le backend
 Liaison avec le frontend
 dans le frontend > création du fichier /src/services/clientService.js
 
+Partie création et consultation terminée
+On attaque 
+
+https://chatgpt.com/share/67465cd1-e1bc-800b-9c50-c51bcb8b8c80
+
 

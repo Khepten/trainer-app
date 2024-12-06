@@ -25,6 +25,7 @@ function ClientForm() {
             if (response.ok) {
                 const data = await response.json();
                 setSuccessMessage(`Client ajouté: ${data.firstname} ${data.lastname}`);
+                console.log(data);
                 setFirstname('');
                 setLastname('');
                 setEmail('');

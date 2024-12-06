@@ -11,6 +11,7 @@ const Home = () => {
             <p>Le message d'accueil</p>
             <p className='text-blue-500'>Salut je viens de changer le texte</p>
             	<p>je rajoute du texte</p>
+                <p>test2</p>
         </div>
     );
 };

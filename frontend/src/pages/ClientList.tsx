@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getClients } from '../services/clientService';
 import Navigation from '../components/Navigation';
 import Logo from '../components/Logo';
+import { Link } from 'react-router-dom';
 
 const ClientList = () => {
     interface Client {
@@ -22,7 +23,28 @@ const ClientList = () => {
                 console.error('Erreur lors du chargement des clients:', error);
             });
     }, []);
-    
+
+    // Ajout de la logique de suppression :
+    const handleDelete = async (id: number) => {
+        if (window.confirm("Êtes-vous sûr de vouloir supprimer ce client ?")) {
+            try {
+                const response = await fetch(`http://localhost:5000/delete-client/${id}`, {
+                    method: "DELETE",
+                });
+
+                if (response.ok) {
+                    alert("Client supprimé avec succès.");
+                    // Mettre à jour la liste localement après suppression
+                    setClients((prevClients) => prevClients.filter((client) => client.id !== id));
+                } else {
+                    alert("Erreur lors de la suppression du client.");
+                }
+            } catch (err) {
+                console.error("Erreur lors de la suppression :", err);
+            }
+        }
+    };
+
     return (
         <div className='min-h-screen bg-gray-100'>
                 <Logo />
@@ -40,9 +62,22 @@ const ClientList = () => {
                                     <p className='text-sm text-gray-500'>
                                         Email: {client.email} | Téléphone: {client.phone}
                                     </p>
+                                    <p className="text-sm text-gray-400">ID: {client.id}</p>
                                 </div>
-                                    {/* {client.id}{client.firstname}{client.lastname}{client.email}{client.phone} */}
-                                <p className="text-sm text-gray-400">ID: {client.id}</p>
+                                <div>
+                                    <Link
+                                        to={`/edit-client/${client.id}`}
+                                        className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md shadow-sm transition duration-200"
+                                    >
+                                        Éditer
+                                    </Link>
+                                    <button
+                                        onClick={() => handleDelete(client.id)}
+                                        className='text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md shadow-sm transition duration-200'
+                                    >
+                                        Supprimer
+                                    </button>
+                                </div>
                             </li>
                         ))}
                     </ul>

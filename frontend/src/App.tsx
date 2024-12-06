@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import ClientList from './pages/ClientList';
 import ClientForm from './pages/ClientForm';
+import ClientEdit from './pages/ClientEdit';
 
 const App = () => {
   return (
@@ -12,7 +13,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/clientlist' element={<ClientList />} />
         <Route path="/clientform" element={<ClientForm />} />
-        {/* <Route path="/edit-client/:id" element={<ClientForm />} /> */}
+        <Route path="/edit-client/:id" element={<ClientEdit />} />
         <Route path='/about' element={<About />} />
         <Route path='*' element={<Home />} />
       </Routes>

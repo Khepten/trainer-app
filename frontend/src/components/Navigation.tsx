@@ -47,6 +47,16 @@ const Navigation = () => {
                     >
                         <li>Ajout d'un client</li>
                     </NavLink>
+                    <NavLink 
+                        to="/edit-client/${id}"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "text-white font-semibold border-b-2 border-white"
+                                : "text-blue-200 hover:text-white"
+                        }
+                    >
+                        <li>Editer un client</li>
+                    </NavLink>
                 </ul>
             </div>
         </nav>

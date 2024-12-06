@@ -30,7 +30,7 @@ app.get("/clientlist", async (req, res) => {
     }
 });
 
-// Route pour ajouter un client
+// Route pour ajouter un client à partir d'un formulaire vierge
 app.post("/clientform", async (req, res) => {
     console.log("Corps de la requête :", req.body);
     res.json({ message: "Retu" });
@@ -52,26 +52,67 @@ app.post("/clientform", async (req, res) => {
     }
 });
 
-// Route pour éditer un client
-// Route pour mettre à jour un client
-app.put("/api/clients/:id", async (req, res) => {
+// Route pour récupérer un client existant et l'afficher dans un formulaire
+app.get("/edit-client/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { firstname, lastname, email, phone } = req.body;
-
-        const result = await pool.query(
-            `UPDATE clients SET firstname = $1, lastname = $2, email = $3, phone = $4 WHERE id = $5 RETURNING *`,
-            [firstname, lastname, email, phone, id]
-        );
+        const result = await pool.query("SELECT * FROM clients WHERE id = $1", [
+            id,
+        ]);
 
         if (result.rows.length === 0) {
+            return res.status(404).send("Client introuvable");
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Erreur serveur");
+    }
+});
+
+// Route pour mettre à jour un client à partir d'un client existant préchargé dans un formulaire
+app.put("/edit-client/:id", async (req, res) => {
+    const { id } = req.params; // Récupère l'ID du client
+    const { firstname, lastname, email, phone } = req.body; // Récupère les données envoyées
+
+    try {
+        const query = `
+            UPDATE clients 
+            SET firstname = $1, lastname = $2, email = $3, phone = $4 
+            WHERE id = $5 RETURNING *`;
+        const values = [firstname, lastname, email, phone, id];
+
+        const result = await pool.query(query, values);
+
+        if (result.rowCount === 0) {
             return res.status(404).json({ error: "Client non trouvé" });
         }
 
-        res.json({ message: "Client mis à jour", client: result.rows[0] });
+        res.json(result.rows[0]); // Renvoie les informations mises à jour
+    } catch (err) {
+        console.error("Erreur lors de la mise à jour:", err);
+        res.status(500).json({ error: "Erreur serveur" });
+    }
+});
+
+// Route pour supprimer un cient
+app.delete("/delete-client/:id", async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const result = await pool.query("DELETE FROM clients WHERE id = $1", [
+            id,
+        ]);
+
+        if (result.rowCount > 0) {
+            res.status(200).send("Client supprimé avec succès");
+        } else {
+            res.status(404).send("Client introuvable");
+        }
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({ error: "Erreur serveur" });
+        res.status(500).send("Erreur serveur");
     }
 });
 
