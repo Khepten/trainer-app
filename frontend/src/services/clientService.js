@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
-// Fonction pour lister les clients
+// Fonction pour lister tous les clients
 export const getClients = async () => {
     try {
         const response = await axios.get(`${BASE_URL}/clientlist`);
@@ -13,7 +13,7 @@ export const getClients = async () => {
     }
 };
 
-// Fonction pour ajouter un client
+// Fonction pour ajouter un nouveau client
 export const addClient = async (clientData) => {
     try {
         const response = await axios.post(`${BASE_URL}/clientform`, clientData);
@@ -24,7 +24,21 @@ export const addClient = async (clientData) => {
     }
 };
 
-// Fonction pour éditer un client
+// Fonction pour récupérer un client par son id
+export const getClientById = async (id) => {
+    try {
+        const response = await fetch(`${BASE_URL}/client/${id}`);
+        if (!response.ok) {
+            throw new Error("Erreur lors de la récupération du client");
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Erreur dans getClientById:", error);
+        throw error;
+    }
+};
+
+// Fonction pour mettre à jour un client
 export const updateClient = async (id, clientData) => {
     try {
         const response = await fetch(`${BASE_URL}/edit-client/${id}`, {
@@ -47,7 +61,6 @@ export const updateClient = async (id, clientData) => {
 };
 
 //Fonction pour supprimer un client
-// Supprimer un client
 export const deleteClient = async (id) => {
     try {
         const response = await fetch(`${BASE_URL}/delete-client/${id}`, {
